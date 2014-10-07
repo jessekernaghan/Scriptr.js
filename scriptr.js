@@ -50,7 +50,7 @@ scriptr.prototype = {
      Add script to the queue
      -----*/
    register : function(slug, parameters){
-	  this.scripts[slug] = parameters;
+	   this.scripts[slug]          = parameters;
      this.scripts[slug].loadnext = [];
      this.scripts[slug].loaded   = false;
      this.scripts[slug].check    = (this.scripts[slug].check != undefined) ? this.scripts[slug].check : true;
