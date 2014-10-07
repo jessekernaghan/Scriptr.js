@@ -42,17 +42,14 @@ Multiple Scripts
 var scriptloader = new scriptr();
 
 scriptloader.register('script1', {
-  slug : 'script1',
   url  : '/path/to/script1.js'
 });
 
 scriptloader.register('script2', {
-  slug : 'script2',
   url  : '/path/to/script2.js'
 });
 
 scriptloader.register('script3', {
-  slug : 'script3',
   url  : '/path/to/script3.js'
 });
 
@@ -68,7 +65,6 @@ Loading a script with a callback
 var scriptloader = new scriptr();
 
 scriptloader.register('jquery', {
-  slug   : 'jquery',
   url    : '/path/to/jquery.js',
 
   onload : function(){
@@ -89,7 +85,6 @@ Loading a script conditionally
 var scriptloader = new scriptr();
 
 scriptloader.register('html5shiv', {
-  slug   : 'html5shiv',
   url    : '/path/to/html5shiv.js',
 
   check  : !!document.createElement('canvas').getContext, //returns false in ie8, where html5shiv is needed
@@ -111,7 +106,6 @@ Loading a script with a dependency
 var scriptloader = new scriptr();
 
 scriptloader.register('jquery', {
-  slug   : 'jquery',
   url    : '/path/to/jquery.js',
   onload : function(){
     alert('jQuery is ready to use!');
@@ -120,7 +114,6 @@ scriptloader.register('jquery', {
 });
 
 scriptloader.register('jqueryplugin', {
-  slug   : 'jqueryplugin',
   url    : '/path/to/jqueryplugin.js',
 
   require : ['jquery'], //the slug of the dependency
@@ -142,7 +135,6 @@ Deregistering Scripts
 var scriptloader = new scriptr();
 
 scriptloader.register('jquery', {
-  slug   : 'jquery',
   url    : '/path/to/jquery.js',
   onload : function(){
     alert('jQuery is ready to use!');
