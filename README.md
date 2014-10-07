@@ -1,9 +1,7 @@
 bgsrcset.js
 =========
 ---
-This javascript plugin is based on the magical [srcset spec] [1], and attempts to bring the same functionality to the more flexible CSS background image.
-
-The implementation tries to match spec as much as physically possible, although at the moment it is restricted to matching browser width, not height. This will hopefully be tackled in a future release.
+As the web becomes more and more dynamic, the need for a colorful variety of javascript plugins becomes desireable. This simple script hopes to help manage the workload by grabbing your scripts asynchronously, loading them conditionally, and ensuring that any script that they depend on load first.
 
 ---
 Version
@@ -15,8 +13,9 @@ Features
 ----
 
   - full browser support, starting at IE8
-  - callback on image load
-  - standalone and lightweight
+  - callback on script load and fail
+  - dependency support
+  - conditional loading
 
 
 Basic Implementation
@@ -24,52 +23,74 @@ Basic Implementation
 
 ```sh
 
-/*
- * Selector based on querySelectorAll
- * .class
- * #id
- * tag
- */
-
-var bgss = new bgsrcset('.bgimg');
-
-```
-And the HTML
-```sh
-
-<div class='bgimg' 
-     bg-srcset='small1x.jpg 320w, 
-                med1x.jpg 768w, 
-                null 912w,
-                large1x.jpg 1x, 
-                large2x.jpg 2x'>
-</div>
-
-```
-
-Some key points
-  - Can check for retina (1x, 2x)
-  - Images without specified width are considered 'full' width
-  - Unlike actual srcset, you can use **null** to set a width set where no bg image is used
-  - If you need a no-js fallback or a placeholder until the proper image loads, it can be easily done in CSS.
-
-
-Using the Callback
---------------
-
-```sh
-var bgss = new bgsrcset('.bgimg', function(data){
-    data.node.className += ' loaded'; //add a loaded class to div
-    console.log(data.srcset); //log full srcset details
+var scriptloader = new scriptr();
+scriptloader.register('jquery', {
+  slug : 'jquery',
+  url  : '/path/to/jquery.js'
 });
 
 ```
-The callback contains variables for targeting the element as well as giving access to all the srcset information.
-
-Examples
+Loading a script with a callback
 ----
 
-An example usage can be found [here] [2].
+```sh
 
-[1]:http://www.w3.org/html/wg/drafts/srcset/w3c-srcset/
-[2]:http://codepen.io/jessekernaghan/pen/wGjtC
+var scriptloader = new scriptr();
+scriptloader.register('jquery', {
+  slug   : 'jquery',
+  url    : '/path/to/jquery.js',
+  onload : function(){
+    alert('jQuery is ready to use!');
+    jQuery(document).addClass('loaded');
+  }
+});
+
+```
+Loading a script conditionally
+----
+
+```sh
+
+var scriptloader = new scriptr();
+
+scriptloader.register('html5shiv', {
+  slug   : 'html5shiv',
+  url    : '/path/to/html5shiv.js',
+  check  : !!document.createElement('canvas').getContext; //returns false in ie8, where html5shiv is needed
+  onload : function(){
+    alert('html5shiv activated!');
+  }
+});
+
+scriptloader.loadscripts();
+
+```
+
+Loading a script with a dependency
+----
+
+```sh
+
+var scriptloader = new scriptr();
+
+scriptloader.register('jquery', {
+  slug   : 'jquery',
+  url    : '/path/to/jquery.js',
+  onload : function(){
+    alert('jQuery is ready to use!');
+    jQuery(document).addClass('loaded');
+  }
+});
+
+scriptloader.register('jqueryplugin', {
+  slug   : 'jqueryplugin',
+  url    : '/path/to/jqueryplugin.js',
+  require : ['jquery'], //the slug of the dependency
+  onload : function(){
+    alert('jQuery plugin activated, but only after jQuery loaded!');
+  }
+});
+
+scriptloader.loadscripts();
+
+```
