@@ -24,18 +24,49 @@ Basic Implementation
 ```sh
 
 var scriptloader = new scriptr();
+
 scriptloader.register('jquery', {
   slug : 'jquery',
   url  : '/path/to/jquery.js'
 });
 
+scriptloader.loadscripts();
+
 ```
+
+Multiple Scripts
+----
+
+```sh
+
+var scriptloader = new scriptr();
+
+scriptloader.register('script1', {
+  slug : 'script1',
+  url  : '/path/to/script1.js'
+});
+
+scriptloader.register('script2', {
+  slug : 'script2',
+  url  : '/path/to/script2.js'
+});
+
+scriptloader.register('script3', {
+  slug : 'script3',
+  url  : '/path/to/script3.js'
+});
+
+scriptloader.loadscripts();
+
+```
+
 Loading a script with a callback
 ----
 
 ```sh
 
 var scriptloader = new scriptr();
+
 scriptloader.register('jquery', {
   slug   : 'jquery',
   url    : '/path/to/jquery.js',
@@ -46,6 +77,8 @@ scriptloader.register('jquery', {
   }
 
 });
+
+scriptloader.loadscripts();
 
 ```
 Loading a script conditionally
@@ -91,12 +124,34 @@ scriptloader.register('jqueryplugin', {
   url    : '/path/to/jqueryplugin.js',
 
   require : ['jquery'], //the slug of the dependency
-  
+
   onload : function(){
     alert('jQuery plugin activated, but only after jQuery loaded!');
   }
 });
 
 scriptloader.loadscripts();
+
+```
+
+Deregistering Scripts
+----
+
+```sh
+
+var scriptloader = new scriptr();
+
+scriptloader.register('jquery', {
+  slug   : 'jquery',
+  url    : '/path/to/jquery.js',
+  onload : function(){
+    alert('jQuery is ready to use!');
+    jQuery(document).addClass('loaded');
+  }
+});
+
+scriptloader.deregister('jquery');
+
+scriptloader.loadscripts(); //jquery won't be one of them
 
 ```
