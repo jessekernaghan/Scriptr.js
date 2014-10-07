@@ -39,10 +39,12 @@ var scriptloader = new scriptr();
 scriptloader.register('jquery', {
   slug   : 'jquery',
   url    : '/path/to/jquery.js',
+
   onload : function(){
     alert('jQuery is ready to use!');
     jQuery(document).addClass('loaded');
   }
+
 });
 
 ```
@@ -56,7 +58,9 @@ var scriptloader = new scriptr();
 scriptloader.register('html5shiv', {
   slug   : 'html5shiv',
   url    : '/path/to/html5shiv.js',
-  check  : !!document.createElement('canvas').getContext; //returns false in ie8, where html5shiv is needed
+
+  check  : !!document.createElement('canvas').getContext, //returns false in ie8, where html5shiv is needed
+
   onload : function(){
     alert('html5shiv activated!');
   }
@@ -85,7 +89,9 @@ scriptloader.register('jquery', {
 scriptloader.register('jqueryplugin', {
   slug   : 'jqueryplugin',
   url    : '/path/to/jqueryplugin.js',
+
   require : ['jquery'], //the slug of the dependency
+  
   onload : function(){
     alert('jQuery plugin activated, but only after jQuery loaded!');
   }
