@@ -1,7 +1,7 @@
 scriptr.js
 =========
 ---
-As the web becomes more and more dynamic, the need for a colorful variety of javascript plugins becomes desireable. This simple script hopes to help manage the workload by grabbing your scripts asynchronously, loading them conditionally, and ensuring that any script that they depend on load first.
+This simple plugin hopes to improve performance by grabbing your scripts asynchronously, loading them conditionally, and ensuring that any script that they depend on load first.
 
 ---
 Version
