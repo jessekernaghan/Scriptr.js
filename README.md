@@ -25,8 +25,9 @@ Basic Implementation
 
 var scriptloader = new scriptr();
 
+//the first parameter (in this case, 'jquery') is an arbitrary slug for
+//referencing this script when doing dependency loading
 scriptloader.register('jquery', {
-  slug : 'jquery',
   url  : '/path/to/jquery.js'
 });
 
