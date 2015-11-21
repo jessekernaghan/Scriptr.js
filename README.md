@@ -1,3 +1,11 @@
+This project is no longer in use!
+---
+
+---
+It was an effective tool and powered a lot of my projects well but I have since switched over to [require.js](https://github.com/jrburke/requirejs) which is an amazing implementation of AMD.
+
+---
+
 scriptr.js
 =========
 ---
